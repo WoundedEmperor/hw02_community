@@ -18,9 +18,8 @@ def index(request):
 
 
 def group_posts(request, slug):
-    gr_db = Group.objects.first()
     group_none = get_object_or_404(Group, slug=slug)
-    posts = gr_db.group_posts.all().order_by('-pub_date')[:POST_NUM]
+    posts = Group.objects.first().group_posts.order_by('-pub_date')[:POST_NUM]
     title = 'Посты сообщества.'
     context = {
         'group': group_none,
