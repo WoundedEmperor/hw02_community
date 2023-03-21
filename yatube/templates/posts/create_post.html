@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block title %}О чём вы хотели бы рассказать?{% endblock %}
+
+{% block content %}
+  <h1>
+    Создать новую запись
+  </h1>
+  <div class='row justify-cintent-center'>
+    <div class="col-md-8 p-5">
+      <div class="card">
+        <div class="card-header">
+          {% if is_edit %}
+            Сохранить запись
+          {% else %}
+            Новая запись
+          {% endif %}
+        </div>
+        <div class="card-body">   
+          
+        {% if is_edit %}
+          <form method="post" action="{% url 'posts:post_edit' %}" class="form-content-center">
+        {% else %}
+          <form method="post" action="{% url 'posts:post_create' %}" class="form-content-center">
+        {% endif %}
+            {% csrf_token %}         
+            <div class="form-group row my-3 p-3">
+              <label for="id_text">
+                Текст поста                  
+                <span class="required text-danger">*</span>                  
+              </label>
+              <textarea name="text" cols="40" rows="10" class="form-control" required id="id_text">
+              </textarea>                
+              <small id="id_text-help" class="form-text text-muted">
+                Текст нового поста
+              </small>                  
+            </div>            
+            <div class="form-group row my-3 p-3">
+              <label for="id_group">
+                Группа                  
+              </label>
+              {{ form.group }}
+              <small id="id_group-help" class="form-text text-muted">
+                Группа, к которой будет относиться пост
+              </small>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button type="submit" class="btn btn-primary">
+                {% if is_edit %}
+                  Сохранить
+                {% else %}
+                  Добавить
+                {% endif %}               
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
